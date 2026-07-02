@@ -3,9 +3,7 @@
     "mining-news-mcp": {
       "command": "python",
       "args": ["-m", "mining_daily_agent.servers.mining_news_mcp"],
-      "env": {
-        "MINING_AGENT_OFFLINE": "1"
-      }
+      "env": {}
     },
     "mineral-pdf-mcp": {
       "command": "python",

@@ -50,8 +50,10 @@ it to stdout.
 Optional environment variables:
 
 - `MINING_AGENT_OFFLINE=1`: force fixture mode for repeatable demos.
+- `MINING_AGENT_ALLOW_FIXTURES=1`: allow reference fixture fallback when live sources have no match.
 - `MINING_NEWS_FEEDS`: comma-separated RSS feed URLs. Defaults to `https://www.mining.com/feed/`.
-- `REPORT_PDF_URL`: URL or local path to an NI 43-101 PDF/text file for the agent workflow.
+- `REPORT_PDF_URL`: URL or local path to a public mineral resource PDF/text file. Defaults to
+  Pilbara Minerals' 2025 annual report.
 - `PRICE_CSV_DIR`: directory containing `copper.csv`, `zinc.csv`, etc. with columns
-  `date,close,source_url`.
+  `date,close,source_url`. Optional; live Westmetall/SunSirs sources are used first when available.
 - `MINING_AGENT_CACHE_DIR`: cache directory. Defaults to `.cache/mining-daily-agent`.

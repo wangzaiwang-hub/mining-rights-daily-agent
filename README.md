@@ -18,8 +18,10 @@ agent that composes three MCP servers into a Markdown briefing workflow.
 
 The implementation is intentionally conservative. External mining data sources can be unstable,
 blocked, or rate limited during a take-home review, so every integration returns explicit source
-metadata and warnings. Offline fixtures are marked as `reference_fixture` and are never presented
-as live market data.
+metadata and warnings. Default runtime paths use live public sources: Mining.com RSS, Pilbara
+Minerals' 2025 annual report PDF, Westmetall LME tables for copper/zinc/nickel, and SunSirs
+lithium carbonate spot data. Reference fixtures are disabled by default and must be enabled with
+`MINING_AGENT_ALLOW_FIXTURES=1` or `MINING_AGENT_OFFLINE=1`.
 
 The agent can run without model API keys. That keeps the 5-minute reviewer path reliable while
 still preserving the MCP shape of the solution. If desired, an LLM synthesis layer can be added

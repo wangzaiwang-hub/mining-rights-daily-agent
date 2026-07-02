@@ -45,6 +45,15 @@ def configured_feeds() -> list[str]:
     return [part.strip() for part in raw.split(",") if part.strip()]
 
 
+def allow_fixtures() -> bool:
+    """Return true when reference fixtures may be used."""
+
+    return (
+        os.getenv("MINING_AGENT_OFFLINE") == "1"
+        or os.getenv("MINING_AGENT_ALLOW_FIXTURES") == "1"
+    )
+
+
 def _parse_feed_date(entry: object) -> datetime:
     published = getattr(entry, "published", None) or getattr(entry, "updated", None)
     if published:
@@ -68,7 +77,7 @@ def _matches(article: NewsArticle, query: str) -> bool:
         return True
     haystack = f"{article.title} {article.summary} {article.text}".casefold()
     matches = sum(1 for term in terms if term in haystack)
-    required = 1 if len(terms) <= 2 else 2
+    required = len(terms) if len(terms) <= 2 else 2
     return matches >= required
 
 
@@ -112,11 +121,13 @@ async def search_news(query: str, days: int = 7, limit: int = 10) -> dict[str, o
         except FetchError as exc:
             warnings.append(str(exc))
 
-    if not articles:
+    if not articles and allow_fixtures():
         source_type = "reference_fixture"
         if configured_feeds():
             warnings.append("No live RSS matches found; using bundled reference fixture.")
         articles = [article for article in _load_fixture_articles() if _matches(article, query)]
+    elif not articles:
+        warnings.append("No live RSS matches found. Reference fixtures are disabled.")
 
     articles = sorted(articles, key=lambda item: item.published_at, reverse=True)[:limit]
     return {
@@ -139,13 +150,13 @@ async def fetch_article(url: str) -> dict[str, object]:
         (article for article in _load_fixture_articles() if article.url == url),
         None,
     )
-    if fixture_match and not is_http_url(url):
+    if fixture_match and not is_http_url(url) and allow_fixtures():
         return {"article": fixture_match, "source_type": "reference_fixture", "warnings": warnings}
 
     try:
         html = await fetch_text(url, ttl_seconds=3600)
     except FetchError as exc:
-        if fixture_match:
+        if fixture_match and allow_fixtures():
             warnings.append(str(exc))
             warnings.append("Fell back to bundled fixture article text.")
             return {

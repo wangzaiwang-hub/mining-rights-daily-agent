@@ -3,32 +3,28 @@
 Generated: 2026-07-02
 
 ## Executive Summary
-- News signal: Pilbara lithium project advances resource review as buyers watch spodumene supply; Australia critical minerals policy keeps lithium processing incentives in focus.
-- Resource signal: extracted 4 rows covering Indicated, Inferred resources.
-- Price signal: lithium moved -4.71% over the available 7-day window.
+- News signal: no matching live RSS articles were available.
+- Resource signal: extracted 7 rows covering Indicated, Inferred resources.
+- Price signal: lithium moved +8.67% over the available 7-day window.
 
 ## News Summary
-- [Pilbara lithium project advances resource review as buyers watch spodumene supply](fixture://news/pilbara-lithium-resource-review)
-  - Pilbara-focused lithium developers are updating resource assumptions while Asian converters monitor spodumene availability and contract timing.
-- [Australia critical minerals policy keeps lithium processing incentives in focus](fixture://news/australia-critical-minerals-policy)
-  - Policy support for downstream critical minerals processing remains a key watch item for lithium and rare earth projects.
+- No news articles found.
 
 ## Resource Data
-- **Indicated**: 214.0 Mt at 1.13 %LI2O; metal 2.42 MTLCE. Evidence: `Indicated 214.0 Mt 1.13 % Li2O 2.42 Mt LCE`
-- **Inferred**: 46.0 Mt at 0.95 %LI2O; metal 0.44 MTLCE. Evidence: `Inferred 46.0 Mt 0.95 % Li2O 0.44 Mt LCE`
-- **Indicated**: 12.4 Mt at 1.82 G/TAU; metal 725.0 KOZ. Evidence: `Indicated 12.4 Mt 1.82 g/t Au 725 koz`
-- **Inferred**: 7.8 Mt at 1.44 G/TAU; metal 361.0 KOZ. Evidence: `Inferred 7.8 Mt 1.44 g/t Au 361 koz`
+- **Indicated**: 349.0 Mt at 1.29 %LI2O. Evidence: `Indicated 349 1.29 121 0.54 314.4 1.15 106 0.53`
+- **Inferred**: 70.0 Mt at 1.25 %LI2O. Evidence: `Inferred 70 1.25 134 0.58 76.6 1.07 124 0.53`
+- **Indicated**: 8.0 Mt at 0.93 %LI2O. Evidence: `Indicated 8 0.93 83 3.37 ‑ ‑ ‑ ‑`
+- **Indicated**: 356.0 Mt at 1.29 %LI2O. Evidence: `Indicated 356 1.29 120 0.60 314.4 1.15 106 0.53`
+- **Indicated**: 38.63 Mt at 1.23 %LI2O; metal 475.1 KTLI2O. Evidence: `Indicated 38.63 1.23 475.1`
+- **Inferred**: 3.59 Mt at 1.1 %LI2O; metal 39.5 KTLI2O. Evidence: `Inferred 3.59 1.10 39.5`
+- **Inferred**: 6.79 Mt at 0.87 %LI2O; metal 59.1 KTLI2O. Evidence: `Fog’s Block Inferred 6.79 0.87 59.1`
 
 ## Price Trend
-- **lithium**: 2026-06-24 78,500.00 CNY/t -> 2026-07-01 74,800.00 CNY/t; -4.71% (down).
+- **lithium**: 2026-06-27 150,000.00 CNY/t -> 2026-07-02 163,000.00 CNY/t; +8.67% (up).
 
 ## Risk Notes
-- News data came from a reference fixture; rerun with live RSS before submission to decision makers.
-- lithium: Price movement is not extreme in the available window, but live exchange data should be checked before investment use.
-  - Data warning: Using bundled reference fixture, not live LME/SHFE/Shanghai Metals Market data.
+- lithium: Input or concentrate pricing is moving sharply upward; verify whether project economics assume stale price decks.
 
 ## Sources
-- News: [Pilbara lithium project advances resource review as buyers watch spodumene supply](fixture://news/pilbara-lithium-resource-review)
-- News: [Australia critical minerals policy keeps lithium processing incentives in focus](fixture://news/australia-critical-minerals-policy)
-- Resource report: `F:\面试\examples\sample_ni43101.txt` (reference_fixture)
-- Price: [lithium 2026-07-01](data/fixtures/prices.json) (reference_fixture)
+- Resource report: `https://www.pls.com/storage/announcements/2025-annual-report-incorporating-appendix-4e-2025-08-25.pdf` (live_pdf)
+- Price: [lithium 2026-07-02](https://www.sunsirs.com/uk/prodetail-1162.html) (live_sunsirs_spot)

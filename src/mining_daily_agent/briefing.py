@@ -55,7 +55,10 @@ async def generate_briefing(topic: str, days: int = 7) -> str:
     resource_payload = await extract_resources(report_url)
 
     commodity_keys = [normalize_commodity(item) for item in commodities_for_topic(topic)]
-    trends = [get_price_trend(commodity, days=max(days, 7)) for commodity in commodity_keys]
+    trends = [
+        await get_price_trend(commodity, days=max(days, 7))
+        for commodity in commodity_keys
+    ]
 
     lines = [
         f"# Mining Rights Daily: {topic}",
@@ -68,7 +71,7 @@ async def generate_briefing(topic: str, days: int = 7) -> str:
         top_titles = "; ".join(article.title for article in enriched_articles[:2])
         lines.append(f"- News signal: {top_titles}.")
     else:
-        lines.append("- News signal: no matching live or fixture articles were available.")
+        lines.append("- News signal: no matching live RSS articles were available.")
 
     resource_rows = resource_payload["estimates"]
     if resource_rows:
@@ -99,9 +102,14 @@ async def generate_briefing(topic: str, days: int = 7) -> str:
     if not resource_rows:
         lines.append("- Abstain: no reliable Indicated/Inferred rows found.")
     for row in resource_rows:
+        metal = (
+            f"; metal {row.metal} {row.metal_unit}"
+            if row.metal is not None and row.metal_unit
+            else ""
+        )
         lines.append(
-            f"- **{row.category}**: {row.ore_mt} Mt at {row.grade} {row.grade_unit}; "
-            f"metal {row.metal} {row.metal_unit}. Evidence: `{row.evidence}`"
+            f"- **{row.category}**: {row.ore_mt} Mt at {row.grade} {row.grade_unit}"
+            f"{metal}. Evidence: `{row.evidence}`"
         )
 
     lines.extend(["", "## Price Trend"])

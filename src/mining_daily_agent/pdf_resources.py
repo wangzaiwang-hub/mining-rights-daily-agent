@@ -11,13 +11,23 @@ from pypdf import PdfReader
 from mining_daily_agent.common import ResourceEstimate, ResponseFormat, project_root, to_json
 from mining_daily_agent.http_client import FetchError, fetch_bytes, is_http_url
 
-DEFAULT_REPORT = project_root() / "examples" / "sample_ni43101.txt"
+DEFAULT_REPORT = (
+    "https://www.pls.com/storage/announcements/"
+    "2025-annual-report-incorporating-appendix-4e-2025-08-25.pdf"
+)
 
 RESOURCE_PATTERN = re.compile(
     r"(?P<category>indicated|inferred)\s+"
     r"(?P<ore>[\d,.]+)\s*(?:mt|million\s+tonnes?)\s+"
     r"(?P<grade>[\d,.]+)\s*(?P<grade_unit>g/t\s+au|%?\s*cu|%?\s*li2o|g/t|%)\s+"
     r"(?P<metal>[\d,.]+)\s*(?P<metal_unit>mt\s+lce|moz|koz|oz|kt|t)",
+    re.IGNORECASE,
+)
+JORC_ROW_PATTERN = re.compile(
+    r"(?:^|\s)(?P<category>indicated|inferred)\s+"
+    r"(?P<ore>[\d,.]+)\s+"
+    r"(?P<grade>[\d,.]+)"
+    r"(?:\s+(?P<metal>[\d,.]+))?",
     re.IGNORECASE,
 )
 
@@ -51,11 +61,19 @@ def extract_rows_from_pages(pages: list[tuple[int, str]]) -> list[ResourceEstima
     """Extract indicated/inferred resource rows from page text."""
 
     estimates: list[ResourceEstimate] = []
+    seen: set[tuple[str, float | None, float | None, int | None, str]] = set()
+
+    def add_estimate(row: ResourceEstimate) -> None:
+        key = (row.category, row.ore_mt, row.grade, row.page, row.evidence)
+        if key not in seen:
+            estimates.append(row)
+            seen.add(key)
+
     for page_number, text in pages:
         compact = re.sub(r"\s+", " ", text)
         for match in RESOURCE_PATTERN.finditer(compact):
             evidence = match.group(0).strip()
-            estimates.append(
+            add_estimate(
                 ResourceEstimate(
                     category=match.group("category").title(),
                     ore_mt=_number(match.group("ore")),
@@ -67,6 +85,27 @@ def extract_rows_from_pages(pages: list[tuple[int, str]]) -> list[ResourceEstima
                     evidence=evidence,
                 )
             )
+        has_lithium_resource_header = "li2o (%)" in compact.casefold()
+        has_lithium_metal_header = "li2o (kt)" in compact.casefold()
+        if has_lithium_resource_header:
+            for raw_line in text.splitlines():
+                line = re.sub(r"\s+", " ", raw_line).strip()
+                match = JORC_ROW_PATTERN.search(line)
+                if not match:
+                    continue
+                metal = _number(match.group("metal")) if has_lithium_metal_header else None
+                add_estimate(
+                    ResourceEstimate(
+                        category=match.group("category").title(),
+                        ore_mt=_number(match.group("ore")),
+                        grade=_number(match.group("grade")),
+                        grade_unit="%LI2O",
+                        metal=metal,
+                        metal_unit="KTLI2O" if metal is not None else None,
+                        page=page_number,
+                        evidence=line,
+                    )
+                )
     return estimates
 
 
@@ -80,11 +119,12 @@ async def extract_resources(pdf_url: str | None = None) -> dict[str, object]:
     try:
         payload = await fetch_bytes(target, ttl_seconds=24 * 3600)
     except FetchError as exc:
-        if Path(DEFAULT_REPORT).exists():
+        local_default = project_root() / "examples" / "sample_ni43101.txt"
+        if Path(local_default).exists():
             warnings.append(str(exc))
             warnings.append("Fell back to examples/sample_ni43101.txt.")
-            target = str(DEFAULT_REPORT)
-            payload = Path(DEFAULT_REPORT).read_bytes()
+            target = str(local_default)
+            payload = Path(local_default).read_bytes()
             source_type = "reference_fixture"
         else:
             raise
@@ -135,9 +175,14 @@ def format_resources(payload: dict[str, object], response_format: ResponseFormat
         lines.append("- No rows extracted.")
     for row in estimates:
         page = f"page {row.page}" if row.page else "unknown page"
+        metal = (
+            f", metal {row.metal} {row.metal_unit}"
+            if row.metal is not None and row.metal_unit
+            else ""
+        )
         lines.append(
             f"- **{row.category}** ({page}): ore {row.ore_mt} Mt, "
-            f"grade {row.grade} {row.grade_unit}, metal {row.metal} {row.metal_unit}"
+            f"grade {row.grade} {row.grade_unit}{metal}"
         )
         lines.append(f"  - Evidence: `{row.evidence}`")
     return "\n".join(lines)

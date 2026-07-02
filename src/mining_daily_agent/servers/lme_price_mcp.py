@@ -30,7 +30,7 @@ async def get_price(
 ) -> str:
     """Get the closest available commodity price on or before a requested date."""
 
-    payload = get_price_point(commodity, date or None)
+    payload = await get_price_point(commodity, date or None)
     return format_price(payload, ResponseFormat(response_format))
 
 
@@ -51,7 +51,7 @@ async def get_trend(
 ) -> str:
     """Get commodity price trend over the available lookback window."""
 
-    payload = get_price_trend(commodity, days=days)
+    payload = await get_price_trend(commodity, days=days)
     return format_trend(payload, ResponseFormat(response_format))
 
 
