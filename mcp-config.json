@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "mining-news-mcp": {
+      "command": "python",
+      "args": ["-m", "mining_daily_agent.servers.mining_news_mcp"],
+      "env": {
+        "MINING_AGENT_OFFLINE": "1"
+      }
+    },
+    "mineral-pdf-mcp": {
+      "command": "python",
+      "args": ["-m", "mining_daily_agent.servers.mineral_pdf_mcp"],
+      "env": {}
+    },
+    "lme-price-mcp": {
+      "command": "python",
+      "args": ["-m", "mining_daily_agent.servers.lme_price_mcp"],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,14 @@
+Technical Report Excerpt - Demonstration Fixture
+
+This local text fixture mimics a small NI 43-101 resource table excerpt. It is
+not a live market or issuer document and is used only for deterministic tests.
+
+Mineral Resource Estimate, open pit constrained:
+
+Classification     Ore Tonnes       Grade        Contained Metal
+Indicated          214.0 Mt          1.13 % Li2O  2.42 Mt LCE
+Inferred           46.0 Mt           0.95 % Li2O  0.44 Mt LCE
+
+Gold zone sensitivity table:
+Indicated 12.4 Mt 1.82 g/t Au 725 koz
+Inferred  7.8 Mt  1.44 g/t Au 361 koz

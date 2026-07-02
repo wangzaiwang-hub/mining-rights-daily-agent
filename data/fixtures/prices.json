@@ -1,0 +1,29 @@
+{
+  "commodities": {
+    "copper": [
+      {"date": "2026-06-24", "close": 9620.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-06-27", "close": 9715.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-07-01", "close": 9860.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"}
+    ],
+    "zinc": [
+      {"date": "2026-06-24", "close": 2845.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-06-27", "close": 2810.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-07-01", "close": 2795.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"}
+    ],
+    "nickel": [
+      {"date": "2026-06-24", "close": 15120.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-06-27", "close": 15380.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-07-01", "close": 15510.0, "unit": "USD/t", "source_url": "data/fixtures/prices.json"}
+    ],
+    "lithium": [
+      {"date": "2026-06-24", "close": 78500.0, "unit": "CNY/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-06-27", "close": 77200.0, "unit": "CNY/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-07-01", "close": 74800.0, "unit": "CNY/t", "source_url": "data/fixtures/prices.json"}
+    ],
+    "iron_ore": [
+      {"date": "2026-06-24", "close": 103.5, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-06-27", "close": 105.1, "unit": "USD/t", "source_url": "data/fixtures/prices.json"},
+      {"date": "2026-07-01", "close": 104.2, "unit": "USD/t", "source_url": "data/fixtures/prices.json"}
+    ]
+  }
+}

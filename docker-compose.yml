@@ -1,0 +1,15 @@
+services:
+  agent-demo:
+    build: .
+    environment:
+      MINING_AGENT_OFFLINE: "1"
+    command:
+      - python
+      - -m
+      - mining_daily_agent.agent
+      - --topic
+      - Pilbara lithium mine
+      - --days
+      - "7"
+      - --output
+      - examples/pilbara_report.md

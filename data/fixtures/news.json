@@ -1,0 +1,28 @@
+{
+  "articles": [
+    {
+      "title": "Pilbara lithium project advances resource review as buyers watch spodumene supply",
+      "url": "fixture://news/pilbara-lithium-resource-review",
+      "published_at": "2026-07-01T00:00:00+00:00",
+      "source": "reference-fixture",
+      "summary": "Pilbara-focused lithium developers are updating resource assumptions while Asian converters monitor spodumene availability and contract timing.",
+      "text": "Pilbara-focused lithium developers are updating resource assumptions while Asian converters monitor spodumene availability and contract timing. The main commercial issues are permitting cadence, offtake visibility, and whether resource estimates support expansion capital."
+    },
+    {
+      "title": "Australia critical minerals policy keeps lithium processing incentives in focus",
+      "url": "fixture://news/australia-critical-minerals-policy",
+      "published_at": "2026-06-30T00:00:00+00:00",
+      "source": "reference-fixture",
+      "summary": "Policy support for downstream critical minerals processing remains a key watch item for lithium and rare earth projects.",
+      "text": "Australia's critical minerals strategy continues to emphasize domestic processing, supply-chain resilience, and strategic partnerships. Lithium projects in Western Australia may benefit from grants, concessional finance, or permitting support, but execution risk remains project-specific."
+    },
+    {
+      "title": "Copper inventories steady as LME market awaits China demand signal",
+      "url": "fixture://news/copper-inventories-demand",
+      "published_at": "2026-06-29T00:00:00+00:00",
+      "source": "reference-fixture",
+      "summary": "Base metals traders are watching Chinese industrial demand and exchange inventory levels.",
+      "text": "Copper traders remain focused on demand signals, warehouse inventories, and macro policy expectations. Project teams using copper assumptions should check both LME and regional premiums before publishing economics."
+    }
+  ]
+}
