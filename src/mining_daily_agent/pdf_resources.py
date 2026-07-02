@@ -17,7 +17,7 @@ RESOURCE_PATTERN = re.compile(
     r"(?P<category>indicated|inferred)\s+"
     r"(?P<ore>[\d,.]+)\s*(?:mt|million\s+tonnes?)\s+"
     r"(?P<grade>[\d,.]+)\s*(?P<grade_unit>g/t\s+au|%?\s*cu|%?\s*li2o|g/t|%)\s+"
-    r"(?P<metal>[\d,.]+)\s*(?P<metal_unit>moz|koz|oz|kt|t)",
+    r"(?P<metal>[\d,.]+)\s*(?P<metal_unit>mt\s+lce|moz|koz|oz|kt|t)",
     re.IGNORECASE,
 )
 
