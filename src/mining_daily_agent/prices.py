@@ -1,4 +1,4 @@
-"""Commodity price lookup service with explicit fixture fallback."""
+"""Commodity price lookup service using live public sources or user-provided CSV files."""
 
 from __future__ import annotations
 
@@ -16,12 +16,10 @@ from mining_daily_agent.common import (
     ResponseFormat,
     TrendSummary,
     parse_date,
-    project_root,
     to_json,
 )
 from mining_daily_agent.http_client import FetchError, fetch_text
 
-FIXTURE_PATH = project_root() / "data" / "fixtures" / "prices.json"
 WESTMETALL_FIELDS = {
     "copper": "LME_Cu_cash",
     "zinc": "LME_Zn_cash",

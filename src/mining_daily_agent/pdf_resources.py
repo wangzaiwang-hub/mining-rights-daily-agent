@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 from io import BytesIO
 from pathlib import Path
@@ -45,6 +46,13 @@ def _normal_unit(value: str | None) -> str | None:
     if value is None:
         return None
     return " ".join(value.upper().replace(" ", "").split())
+
+
+def _allow_fixtures() -> bool:
+    return (
+        os.getenv("MINING_AGENT_OFFLINE") == "1"
+        or os.getenv("MINING_AGENT_ALLOW_FIXTURES") == "1"
+    )
 
 
 def extract_text_from_pdf_bytes(payload: bytes) -> list[tuple[int, str]]:
@@ -120,7 +128,7 @@ async def extract_resources(pdf_url: str | None = None) -> dict[str, object]:
         payload = await fetch_bytes(target, ttl_seconds=24 * 3600)
     except FetchError as exc:
         local_default = project_root() / "examples" / "sample_ni43101.txt"
-        if Path(local_default).exists():
+        if _allow_fixtures() and Path(local_default).exists():
             warnings.append(str(exc))
             warnings.append("Fell back to examples/sample_ni43101.txt.")
             target = str(local_default)

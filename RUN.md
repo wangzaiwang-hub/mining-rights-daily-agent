@@ -39,7 +39,7 @@ path if you clone the repository somewhere else.
 ## 5. Docker path
 
 ```powershell
-docker compose up --build agent-demo
+docker compose -p mining-rights-daily-agent up --build agent-demo
 ```
 
 This writes the demo briefing to `/app/examples/pilbara_report.md` inside the container and prints
