@@ -9,3 +9,4 @@ dist/
 build/
 *.egg-info/
 .env
+mcp-config.local.json
